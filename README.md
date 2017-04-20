@@ -13,7 +13,7 @@ In some cases, you want to start the application without an actual app window. I
 
 - `latest` - Latest MagicMirror² server ([Dockerfile](https://github.com/bastilimbach/docker-MagicMirror/blob/master/Dockerfile))
 - `alpine` - Alpine version of the MagicMirror² server ([Dockerfile](https://github.com/bastilimbach/docker-MagicMirror/blob/master/alpine/Dockerfile))
-- `raspberry` - ARM based version to work with a Raspberry Pi ([Dockerfile](https://github.com/bastilimbach/docker-MagicMirror/blob/master/raspberry/Dockerfile))
+- `raspberry` - ARM based version to work with a Raspberry Pi ([Dockerfile](https://github.com/bastilimbach/docker-MagicMirror/blob/master/raspberry/Dockerfile)) (Currently not working [#1](https://github.com/bastilimbach/docker-MagicMirror/issues/1))
 
 # Run MagicMirror² in server only mode
 After a successful [Docker installation](https://docs.docker.com/engine/installation/) you just need to execute the following command in the shell:
@@ -40,6 +40,8 @@ You may need to add your Docker Host IP to your `ipWhitelist` option. If you hav
 var config = {
 	ipWhitelist: ["127.0.0.1", "::ffff:127.0.0.1", "::1", "::ffff:172.17.0.1"]
 };
+
+if (typeof module !== "undefined") { module.exports = config; }
 ```
 
 > Disclaimer: The ARM and Alpine versions are overriding the `/modules` and `/config` folders on every container restart.
