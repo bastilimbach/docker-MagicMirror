@@ -1,4 +1,4 @@
-FROM armhf/node
+FROM hypriot/rpi-node:latest
 
 ENV NODE_ENV production
 ENV MM_PORT 8080
