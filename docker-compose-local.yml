@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  mm_serveronly:
+    build: 
+      context: ./
+    container_name: mm
+    image: karsten13/mm_hyp:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - Z:/raspberry_pi/MagicMirror/config:/opt/magic_mirror/config
+      - Z:/raspberry_pi/MagicMirror/modules:/opt/magic_mirror/modules
