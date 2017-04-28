@@ -12,9 +12,12 @@ services:
       - ~/magic_mirror/config:/opt/magic_mirror/config
       - ~/magic_mirror/modules:/opt/magic_mirror/modules
       - /opt/vc:/opt/vc/:ro
+      - /usr/lib/arm-linux-gnueabihf:/usr/lib/arm-linux-gnueabihf
+      - /tmp/.X11-unix:/tmp/.X11-unix
     devices:
       - /dev/vchiq
     environment:
-      LD_LIBRARY_PATH: /opt/vc/lib 
+      LD_LIBRARY_PATH: /opt/vc/lib
+      DISPLAY: unix$DISPLAY
     network_mode: host
     entrypoint: /opt/magic_mirror/docker-entry-raspberry.sh
