@@ -3,6 +3,9 @@ services:
 - docker
 language: bash
 script:
+- cd ./raspberry
+# prepare qemu
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
 - docker-compose build
 # test image
