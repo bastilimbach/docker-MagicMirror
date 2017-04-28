@@ -8,7 +8,7 @@ script:
 # build image
 - docker-compose build
 # test image
-- cd ./up_serveronly
+- cd ./up-serveronly
 - docker-compose up -d
 # push image
 - >
