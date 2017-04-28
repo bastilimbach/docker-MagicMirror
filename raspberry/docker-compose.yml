@@ -4,8 +4,6 @@ services:
   mm_rasp:
     build: 
       context: ./
-      args:
-      - tag=rasp
     container_name: mm
     image: karsten13/mm_hyp:rasp
     ports:
