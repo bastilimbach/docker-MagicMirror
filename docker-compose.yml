@@ -1,21 +1,9 @@
 version: '2'
 
+# for build only
 services:
   mm_serveronly:
     build: 
       context: ./
-      args:
-      - tag=latest
     container_name: mm
     image: karsten13/mm_hyp:latest
-    ports:
-      - "8080:8080"
-    volumes:
-      - ~/magic_mirror/config:/opt/magic_mirror/config
-      - ~/magic_mirror/modules:/opt/magic_mirror/modules
-      - /opt/vc:/opt/vc/:ro
-    devices:
-      - /dev/vchiq
-    environment:
-      LD_LIBRARY_PATH: /opt/vc/lib 
-    network_mode: host

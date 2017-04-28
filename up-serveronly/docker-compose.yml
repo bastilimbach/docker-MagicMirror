@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  mm_serveronly:
+    build: 
+      context: ./
+    container_name: mm
+    image: karsten13/mm_hyp:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ~/magic_mirror/config:/opt/magic_mirror/config
+      - ~/magic_mirror/modules:/opt/magic_mirror/modules

@@ -3,16 +3,16 @@ services:
 - docker
 language: bash
 script:
-- cd ./raspberry
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
 - docker-compose build
 # test image
+- cd ./up_serveronly
 - docker-compose up -d
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-    docker push karsten13/mm_hyp:rasp
+    docker push karsten13/mm_hyp:latest
   fi

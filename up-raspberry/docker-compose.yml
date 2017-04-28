@@ -1,11 +1,11 @@
 version: '2'
 
 services:
-  mm_rasp:
+  mm_serveronly:
     build: 
       context: ./
     container_name: mm
-    image: karsten13/mm_hyp:rasp
+    image: karsten13/mm_hyp:latest
     ports:
       - "8080:8080"
     volumes:
@@ -17,3 +17,4 @@ services:
     environment:
       LD_LIBRARY_PATH: /opt/vc/lib 
     network_mode: host
+    entrypoint: /opt/magic_mirror/docker-entry-raspberry.sh
