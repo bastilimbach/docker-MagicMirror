@@ -63,12 +63,14 @@ Mit LAN-Kabel verbinden und Zugriff per putty
 sudo nano /etc/network/interfaces
 
 Inhalt so einfügen:
+auto wlan0
 allow-hotplug wlan0
 iface wlan0 inet static
 address 192.168.1.22
 netmask 255.255.255.0
 gateway 192.168.1.1
 wpa-ssid "TP-LINK_K13"
+wpa-psk "xy"
 
 wlan neu starten
 sudo ifdown wlan0
@@ -115,6 +117,10 @@ The Docker client can only be used by root or members of the docker group. Add p
 
 $ sudo usermod -aG docker pi
 
+sudo apt-get purge python-pip
+curl https://bootstrap.pypa.io/get-pip.py | sudo python
+
+sudo pip install docker-compose
 
 ##########RemoteDesktopverbindung
 sudo apt-get -y xrdp 

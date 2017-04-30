@@ -38,4 +38,4 @@ RUN dos2unix docker-entry-serveronly.sh && chmod +x docker-entry-serveronly.sh
 #RUN update-rc.d del_core.sh defaults
 
 EXPOSE $MM_PORT
-ENTRYPOINT ["/opt/magic_mirror/docker-entry-serveronly.sh"]
+ENTRYPOINT ["/opt/magic_mirror/docker-entry-raspberry.sh"]

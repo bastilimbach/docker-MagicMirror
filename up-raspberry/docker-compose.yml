@@ -20,4 +20,4 @@ services:
       LD_LIBRARY_PATH: /opt/vc/lib
       DISPLAY: unix$DISPLAY
     network_mode: host
-    entrypoint: /opt/magic_mirror/docker-entry-raspberry.sh
+#    entrypoint: /opt/magic_mirror/docker-entry-raspberry.sh
