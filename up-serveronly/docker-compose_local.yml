@@ -11,3 +11,4 @@ services:
     volumes:
       - Z:/raspberry_pi/MagicMirror/config:/opt/magic_mirror/config
       - Z:/raspberry_pi/MagicMirror/modules:/opt/magic_mirror/modules
+    entrypoint: /opt/magic_mirror/docker-entrypoint.sh "node serveronly"

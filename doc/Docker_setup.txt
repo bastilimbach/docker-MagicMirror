@@ -12,6 +12,8 @@ docker run  -d --publish 8080:8080 --volume Z:/raspberry_pi/MagicMirror/config:/
 docker run  -d --publish 8080:8080 --volume Z:/raspberry_pi/MagicMirror_Plain/config:/opt/magic_mirror/config --volume Z:/raspberry_pi/MagicMirror_Plain/modules:/opt/magic_mirror/modules --name magicmirror magicmirror
 docker run  -d --publish 8080:8080 --restart always --network=host --volume ~/magic_mirror/config:/opt/magic_mirror/config --volume ~/magic_mirror/modules:/opt/magic_mirror/modules --volume /opt/vc/bin:/opt/vc/bin --device=/dev/vchiq -e LD_LIBRARY_PATH=/opt/vc/lib -v /opt/vc:/opt/vc:ro --name mm karsten13/mm_hyp
 
+docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix --net host -e DISPLAY=$DISPLAY --entrypoint bash --name mm karsten13/mm_hyp
+
 --cap-add=SYS_ADMIN 
 --network=host 
 
@@ -122,12 +124,24 @@ curl https://bootstrap.pypa.io/get-pip.py | sudo python
 
 sudo pip install docker-compose
 
+
+
 ##########RemoteDesktopverbindung
 sudo apt-get -y xrdp 
 
+########## Autostart im Host-Pi:
+nano /home/pi/.config/lxsession/LXDE-pi/autostart
 
-
-
+#Screensaver aus
 @xset s noblank
 @xset s off
 @xset -dpms
+
+#wichtig für Display<->Docker:
+nano ~/.bashrc
+
+export DISPLAY=:0.0
+xhost +local:root	
+
+##########################
+

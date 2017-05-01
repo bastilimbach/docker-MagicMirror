@@ -11,4 +11,4 @@ services:
     volumes:
       - ~/magic_mirror/config:/opt/magic_mirror/config
       - ~/magic_mirror/modules:/opt/magic_mirror/modules
-    entrypoint: /opt/magic_mirror/docker-entry-serveronly.sh      
+    entrypoint: /opt/magic_mirror/docker-entrypoint.sh "node serveronly"
