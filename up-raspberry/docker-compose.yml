@@ -2,8 +2,6 @@ version: '2'
 
 services:
   mm_raspberry:
-    build: 
-      context: ./
     container_name: mm
     image: karsten13/mm_hyp:latest
     ports:
@@ -13,14 +11,14 @@ services:
       - ~/magic_mirror/modules:/opt/magic_mirror/modules
       - /tmp/.X11-unix:/tmp/.X11-unix
 #1      - /opt/vc:/opt/vc/:ro
-#2    devices:
-#2      - /dev/vchiq
+#3    devices:
+#3      - /dev/vchiq
     environment:
 #1      LD_LIBRARY_PATH: /opt/vc/lib
       DISPLAY: unix$DISPLAY
-#3    network_mode: host
-    entrypoint: /opt/magic_mirror/docker-entrypoint.sh "DISPLAY=:0 npm start"   
+#2    network_mode: host
+    entrypoint: /opt/magic_mirror/docker-entrypoint.sh "npm start"   
 
 #1  needed for module MMM-Systemtemperature
-#2  todo: ???
-#3  needed for module MMM-NetworkScanner
+#2  needed for module MMM-NetworkScanner
+#3  needed for #1 and #2

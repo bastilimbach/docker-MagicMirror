@@ -143,5 +143,9 @@ nano ~/.bashrc
 export DISPLAY=:0.0
 xhost +local:root	
 
+#wichtig
+sudo raspi-config: boot wait for network = on 
+-->sonst wird MM nicht richtig aufgebaut weil zu früh gestartet bzw. Netzwerk noch nicht da
+
 ##########################
 

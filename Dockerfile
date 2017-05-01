@@ -6,15 +6,14 @@ EXPOSE 8080
 RUN apt-get update
 
 # needed for running:
-RUN apt-get -y install dos2unix libgtk2.0-0 libx11-xcb-dev libxtst6 libxss1 libgconf-2-4 libnss3-dev libasound2
+RUN apt-get -qy install dos2unix libgtk2.0-0 libx11-xcb-dev libxtst6 libxss1 libgconf-2-4 libnss3-dev libasound2
 
-# arp-scan only needed for the module MMM-NetworkScanner:
-RUN apt-get -y install nano arp-scan
+# arp-scan only needed for the module MMM-NetworkScanner, nano as editor:
+RUN apt-get -qy install nano arp-scan
 
-# getting MagicMirror from github
-RUN git clone https://github.com/MichMich/MagicMirror.git /opt/magic_mirror/
 WORKDIR /opt/magic_mirror
-RUN git checkout origin/master
+# getting MagicMirror from github
+RUN git clone --depth 1 -b master https://github.com/MichMich/MagicMirror.git .
 
 # install (without param the mirror remains black):
 RUN npm install --unsafe-perm
