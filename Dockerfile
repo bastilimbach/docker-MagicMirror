@@ -29,10 +29,4 @@ RUN cp -R config /opt/magic_mirror/unmount_config
 COPY docker-entrypoint.sh /opt/magic_mirror
 RUN dos2unix docker-entrypoint.sh && chmod +x docker-entrypoint.sh
 
-# delete "core" on startup
-#COPY del_core.sh /etc/init.d/del_core.sh
-#RUN dos2unix /etc/init.d/del_core.sh
-#RUN chmod 755 /etc/init.d/del_core.sh
-#RUN update-rc.d del_core.sh defaults
-
 ENTRYPOINT ["/opt/magic_mirror/docker-entry-raspberry.sh"]

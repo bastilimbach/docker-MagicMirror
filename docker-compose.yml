@@ -6,4 +6,4 @@ services:
     build: 
       context: ./
     container_name: mm
-    image: karsten13/mm_hyp:latest
+    image: bastilimbach/docker-magicmirror:latest

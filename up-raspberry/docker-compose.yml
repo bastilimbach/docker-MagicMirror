@@ -3,7 +3,7 @@ version: '2'
 services:
   mm_raspberry:
     container_name: mm
-    image: karsten13/mm_hyp:latest
+    image: bastilimbach/docker-magicmirror:latest
     ports:
       - "8080:8080"
     volumes:

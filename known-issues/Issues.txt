@@ -1,10 +1,12 @@
-1. 3rd party modules in general:
+1. update Readme.md
+
+2. 3rd party modules in general:
 --> include apt-get-dependencies in base Dockerfile?
 --> write documentaion in 3rd party repos or here?
 
-2. MMM-Remote-Control:
+3. MMM-Remote-Control:
 --> shutdown/reboot ...
 
-3. MMM-NetworkScanner:
+4. MMM-NetworkScanner:
 --> exclude Docker IP-Adress or use first part 24:05:0F: as "Docker"
 
