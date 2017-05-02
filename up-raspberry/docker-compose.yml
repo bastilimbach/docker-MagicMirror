@@ -18,6 +18,7 @@ services:
       DISPLAY: unix$DISPLAY
 #2    network_mode: host
     entrypoint: /opt/magic_mirror/docker-entrypoint.sh "npm start"   
+    restart: always
 
 #1  needed for module MMM-Systemtemperature
 #2  needed for module MMM-NetworkScanner
