@@ -44,4 +44,4 @@ var config = {
 if (typeof module !== "undefined") { module.exports = config; }
 ```
 
-> Disclaimer: The ARM and Alpine versions are overriding the `/modules` and `/config` folders on every container restart.
+> Disclaimer: The Alpine version is overriding the `/modules` and `/config` folders on every container restart.
