@@ -8,4 +8,4 @@ if [ ! -f /opt/magic_mirror/config ]; then
     cp -R /opt/magic_mirror/unmount_config/. /opt/magic_mirror/config
 fi
 
-node serveronly
+$1
