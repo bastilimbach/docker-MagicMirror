@@ -1,4 +1,4 @@
-![MagicMirror²: The open source modular smart mirror platform. ](https://github.com/MichMich/MagicMirror/raw/master/.github/header.png)
+[![MagicMirror²: The open source modular smart mirror platform. ](https://github.com/MichMich/MagicMirror/raw/master/.github/header.png)](https://github.com/MichMich/MagicMirror)
 
 [![](https://david-dm.org/MichMich/MagicMirror.svg)](https://david-dm.org/MichMich/MagicMirror) [![](https://david-dm.org/MichMich/MagicMirror/dev-status.svg)](https://david-dm.org/MichMich/MagicMirror#info=devDependencies) [![](https://bestpractices.coreinfrastructure.org/projects/347/badge)](https://bestpractices.coreinfrastructure.org/projects/347) [![](https://img.shields.io/badge/license-MIT-blue.svg)](http://choosealicense.com/licenses/mit) [![](https://travis-ci.org/MichMich/MagicMirror.svg)](https://travis-ci.org/MichMich/MagicMirror) [![](https://snyk.io/test/github/MichMich/MagicMirror/badge.svg)](https://snyk.io/test/github/MichMich/MagicMirror)
 
