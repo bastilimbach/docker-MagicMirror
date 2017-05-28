@@ -1,11 +1,12 @@
+# https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/
 sudo: required
 services:
   - docker
 language: bash
 script:
+  - cd ./raspberry
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker-compose build
-  - docker-compose up -d
+  - docker build -t bastilimbach/docker-magicmirror:raspberry .
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
