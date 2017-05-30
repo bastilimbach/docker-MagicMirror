@@ -6,10 +6,10 @@ language: bash
 script:
   - cd ./raspberry
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -t bastilimbach/docker-magicmirror:raspberry .
+  - docker build -t $DOCKER_USER/docker-magicmirror:raspberry .
 after_success:
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-      docker push bastilimbach/docker-magicmirror:raspberry
+      docker push $DOCKER_USER/docker-magicmirror:raspberry
     fi
