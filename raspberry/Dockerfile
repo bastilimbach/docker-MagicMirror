@@ -12,7 +12,11 @@ RUN cp -R config /opt/magic_mirror/unmount_config
 RUN npm install --unsafe-perm
 
 COPY docker-entrypoint.sh /opt/magic_mirror
-RUN chmod +x docker-entrypoint.sh
+RUN apt-get update \
+  && apt-get -qy install dos2unix \
+  && dos2unix docker-entrypoint.sh \
+  && chmod +x docker-entrypoint.sh
 
 EXPOSE $MM_PORT
+CMD ["node serveronly"]
 ENTRYPOINT ["/opt/magic_mirror/docker-entrypoint.sh"]

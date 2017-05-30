@@ -20,4 +20,5 @@ RUN dos2unix docker-entrypoint.sh \
     && chmod +x docker-entrypoint.sh
 
 EXPOSE $MM_PORT
+CMD ["node serveronly"]
 ENTRYPOINT ["/opt/magic_mirror/docker-entrypoint.sh"]
