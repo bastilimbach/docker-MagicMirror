@@ -38,7 +38,7 @@ You need to configure your MagicMirror² config to listen on any interface and a
 var config = {
     address: "",
     port: 8080,
-    ipWhitelist: ["127.0.0.1", "::ffff:127.0.0.1", "::1", "::ffff:192.168.2.1/120", "192.168.2.110", "172.17.0.1"]
+    ipWhitelist: []
 }
 
 if (typeof module !== "undefined") { module.exports = config; }
