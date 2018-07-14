@@ -1,6 +1,6 @@
 FROM hypriot/rpi-node:latest
 
-# ENV NODE_ENV production - Temporary fix until "https://github.com/MichMich/MagicMirror/pull/1250" is merged into master.
+ENV NODE_ENV production
 
 WORKDIR /opt/magic_mirror
 
