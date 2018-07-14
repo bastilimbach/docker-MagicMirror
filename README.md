@@ -19,19 +19,20 @@ After a successful [Docker installation](https://docs.docker.com/engine/installa
 
 ```bash
 docker run  -d \
-			--publish 80:8080 \
-			--restart always \
-			--volume ~/magic_mirror/config:/opt/magic_mirror/config \
-			--volume ~/magic_mirror/modules:/opt/magic_mirror/modules \
-			--name magic_mirror \
-			bastilimbach/docker-magicmirror
+	--publish 80:8080 \
+	--restart always \
+	--volume ~/magic_mirror/config:/opt/magic_mirror/config \
+	--volume ~/magic_mirror/modules:/opt/magic_mirror/modules \
+	--name magic_mirror \
+	bastilimbach/docker-magicmirror
 ```
 
 # Volumes
-| **Volumes** | **Description** |
+| **Volume** | **Description** |
 | --- | --- |
-| `/opt/magic_mirror/config` | Mount this volume to insert your own config into the docker container. |
-| `/opt/magic_mirror/modules` | Mount this volume to add your own custom modules into the docker container. |
+| `/opt/magic_mirror/config` | Mount this folder to insert your own config into the docker container. |
+| `/opt/magic_mirror/modules` | Mount this folder to add your own custom modules into the docker container. |
+| `/opt/magic_mirror/css/custom.css` | Mount this file to add your own custom css into the docker container. <br><br> **Important:** You need to create the file before you run the container. Otherwise Docker will create a `custom.css` folder. |
 
 # Config
 You need to configure your MagicMirror² config to listen on any interface and allow every ip address.
@@ -44,7 +45,6 @@ var config = {
 }
 
 if (typeof module !== "undefined") { module.exports = config; }
-
 ```
 
 # Contribution
