@@ -1,3 +1,6 @@
+env:
+  - ARCH=x64
+  - ARCH=arm
 sudo: required
 services:
   - docker
