@@ -1,13 +1,16 @@
 env:
-  - ARCH=x64
-  - ARCH=arm
+# x86_64 (or amd64), armhf, and arm64 architectures.
+  - ARCH=x86_64
+  - ARCH=armhf
 sudo: required
 services:
   - docker
 language: bash
 script:
-  - docker build -t $DOCKER_USER/docker-magicmirror:latest .
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build --platform ${ARCH} -t $DOCKER_USER/docker-magicmirror:latest .
 after_success:
-  - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-  - docker push $DOCKER_USER/docker-magicmirror:latest
+  - >
+    if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+      docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+      docker push $DOCKER_USER/docker-magicmirror:latest
+    fi
