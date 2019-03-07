@@ -1,0 +1,20 @@
+image: xbgmsharp/docker-MagicMirror:master
+tags: ['latest']
+manifests:
+ -
+   image: xbgmsharp/docker-MagicMirror:armhf-master
+   platform:
+     architecture: arm
+     variant: v7
+     os: linux
+ -
+   image: xbgmsharp/docker-MagicMirror:arm64-master
+   platform:
+     architecture: arm64
+     variant: v8
+     os: linux
+ -
+   image: xbgmsharp/docker-MagicMirror:amd64-master
+   platform:
+     architecture: amd64
+     os: linux

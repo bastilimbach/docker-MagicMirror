@@ -1,16 +1,30 @@
 env:
 # x86_64 (or amd64), armhf, and arm64 architectures.
-  - ARCH=x86_64
-  - ARCH=armhf
+  - TARGET_ARCH=x86_64
+  - TARGET_ARCH=armhf
 sudo: required
 services:
   - docker
 language: bash
 script:
-  - docker build --platform ${ARCH} -t $DOCKER_USER/docker-magicmirror:latest .
+  - uname -a
+  - docker build -t $DOCKER_USER/docker-magicmirror:latest .
+  - >
+    if [[ $TARGET_ARCH == "armhf" ]]; then
+     uname -a
+     docker run --rm --privileged multiarch/qemu-user-static:register --reset
+     docker build -t $DOCKER_USER/docker-magicmirror:latest .
+    fi
 after_success:
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
       docker push $DOCKER_USER/docker-magicmirror:latest
+      if [[ $TARGET_ARCH == "armhf" ]]; then
+        wget https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-armv6
+        chmox +rx manifest-tool-linux-armv6
+        mv manifest-tool-linux-armv6 manifest-tool
+        echo "Manifest uploading ..."
+        ./manifest-tool push from-spec manifest.yaml
+      fi
     fi
