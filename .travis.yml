@@ -3,11 +3,7 @@ services:
   - docker
 language: bash
 script:
-  - export BUILD_ARCH=`uname -m`
-  - docker build --no-cache=true -t $DOCKER_USER/docker-magicmirror:${BUILD_ARCH}-latest .
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker run --rm -t multiarch/ubuntu-debootstrap:arm64-bionic export BUILD_ARCH=`uname -m` && docker build --no-cache=true -t $DOCKER_USER/docker-magicmirror:${BUILD_ARCH}-latest . 
-  - docker run --rm -t multiarch/ubuntu-debootstrap:armhf-bionic export BUILD_ARCH=`uname -m` && docker build --no-cache=true -t $DOCKER_USER/docker-magicmirror:${BUILD_ARCH}-latest . 
+  - build.sh
 after_success:
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
   - docker push $DOCKER_USER/docker-magicmirror:latest
