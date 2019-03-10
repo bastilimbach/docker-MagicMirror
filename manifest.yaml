@@ -1,20 +1,25 @@
-image: bastilimbach/docker-MagicMirror:master
+image: bastilimbach/docker-MagicMirror:latest
 tags: ['latest']
 manifests:
  -
-   image: bastilimbach/docker-MagicMirror:armhf-master
+   image: bastilimbach/docker-MagicMirror:armhf-latest
    platform:
      architecture: arm
-     variant: v7
+     variant: v6
      os: linux
  -
-   image: bastilimbach/docker-MagicMirror:arm64-master
+   image: bastilimbach/docker-MagicMirror:arm64-latest
    platform:
      architecture: arm64
      variant: v8
      os: linux
  -
-   image: bastilimbach/docker-MagicMirror:amd64-master
+   image: bastilimbach/docker-MagicMirror:amd64-latest
    platform:
      architecture: amd64
+     os: linux
+ -
+   image: bastilimbach/docker-MagicMirror:i386-latest
+   platform:
+     architecture: i386
      os: linux

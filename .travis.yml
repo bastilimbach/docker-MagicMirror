@@ -4,14 +4,3 @@ services:
 language: bash
 script:
   - ./build.sh
-after_success:
-  - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-  - docker push $DOCKER_USER/docker-magicmirror:latest
-  - >
-    if [[ ${BUILD_ARCH} == "armhf" ]]; then
-        wget https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-armv6
-        chmox +rx manifest-tool-linux-armv6
-        mv manifest-tool-linux-armv6 manifest-tool
-        echo "Manifest uploading ..."
-        ./manifest-tool push from-spec manifest.yaml
-    fi
