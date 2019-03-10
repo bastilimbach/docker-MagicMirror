@@ -33,9 +33,7 @@ for arch in ${IMAGE_ARCH}; do
 	QEMU_ARCH="aarch64"
   fi
   docker build --build-arg ARCH=${arch} --build-arg QEMU_BIN=qemu-${QEMU_ARCH}-static -t $DOCKER_USER/docker-magicmirror:${arch} .
-  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-	docker push $DOCKER_USER/docker-magicmirror:${arch}
-  fi
+  docker push $DOCKER_USER/docker-magicmirror:${arch}
 done
 
 echo "Manifest downloading ..."
@@ -45,8 +43,4 @@ mv manifest-tool-linux-amd64 manifest-tool
 chmod +x manifest-tool
 ./manifest-tool --help # Just to check that it's working
 
-# Run
-echo "Manifest uploading ..."
-if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-	./manifest-tool push from-spec manifest.yaml
-fi
+./manifest-tool push from-spec manifest.yaml

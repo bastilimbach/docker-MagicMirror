@@ -11,15 +11,19 @@ In some cases, you want to start the application without an actual app window. I
 
 - `latest` - Latest MagicMirror² server ([Dockerfile](https://github.com/bastilimbach/docker-MagicMirror/blob/master/Dockerfile))
 
-# Supported architectures: ([more info](https://github.com/docker-library/official-images#architectures-other-than-amd64))
-`amd64`, `arm32v6`, `arm32v7`, `arm64v8`, `i386`, `ppc64le`, `s390x`
+> The docker images are getting updated daily by a cron job from ([Travis CI](https://travis-ci.org/bastilimbach/docker-MagicMirror)).
+> Base on NodeJS LTS Alpine Linux
 
-> The docker images are getting updated daily by a cron job from Travis CI.
+# Supported architectures: ([more info](https://github.com/docker-library/official-images#architectures-other-than-amd64))
+`amd64`, `arm32v6`, `arm32v7`, `arm64v8`, `i386`
+
+> The docker image tag `latest` is available for all supported architectures.
 
 # Run MagicMirror² in server only mode
 After a successful [Docker installation](https://docs.docker.com/engine/installation/) you just need to execute the following command in the shell:
 
 ```bash
+docker pull bastilimbach/docker-magicmirror
 docker run  -d \
 	--publish 80:8080 \
 	--restart always \
