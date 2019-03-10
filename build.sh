@@ -10,6 +10,8 @@ for target_arch in ${QEMU_ARCH}; do
   tar -xvf x86_64_qemu-${target_arch}-static.tar.gz
 done
 
+ls qemu-*
+
 # Build image per arch
 IMAGE_ARCH="amd64 arm32v6 arm32v7 arm64v8 i386 ppc64le s390x"
 for arch in ${IMAGE_ARCH}; do
@@ -23,7 +25,7 @@ for arch in ${IMAGE_ARCH}; do
 	QEMU_ARCH="aarch64"
   fi
   docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  docker build --build-arg ARCH=${arch} --build-arg QEMU_ARCH=${QEMU_ARCH} -t $DOCKER_USER/docker-magicmirror:${arch}-latest .
+  docker build --build-arg ARCH=${arch} --build-arg QEMU_BIN=qemu-${QEMU_ARCH}-static -t $DOCKER_USER/docker-magicmirror:${arch}-latest .
   #docker push $DOCKER_USER/docker-magicmirror:${arch}-latest
 done
 

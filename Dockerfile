@@ -1,9 +1,9 @@
 ARG ARCH=amd64
-ARG QEMU_ARCH=x86_64
+ARG QEMU_BIN
 
 FROM ${ARCH}/node:lts-alpine
 
-COPY ./qemu-${QEMU_ARCH}-static /usr/bin/
+COPY ./${QEMU_BIN} /usr/bin/
 
 RUN apk update && apk add git
 
