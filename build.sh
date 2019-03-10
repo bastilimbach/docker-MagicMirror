@@ -2,13 +2,16 @@
 # From https://hub.docker.com/_/node
 
 QEMU_RELEASE="v3.1.0-2"
-QEMU_ARCH="x86_64 arm aarch64 i386"
 
-docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+echo "QEMU resgistering ..."
+# resgister qemu arch
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 echo "QEMU downloading ..."
-# Download latest QEMU to add to image
+# Download latest QEMU to add per image arch
+QEMU_ARCH="x86_64 arm aarch64 i386"
 for target_arch in ${QEMU_ARCH}; do
   wget -Nq https://github.com/multiarch/qemu-user-static/releases/download/${QEMU_RELEASE}/x86_64_qemu-${target_arch}-static.tar.gz
   tar -xvf x86_64_qemu-${target_arch}-static.tar.gz
@@ -29,8 +32,10 @@ for arch in ${IMAGE_ARCH}; do
   then
 	QEMU_ARCH="aarch64"
   fi
-  docker build --build-arg ARCH=${arch} --build-arg QEMU_BIN=qemu-${QEMU_ARCH}-static -t $DOCKER_USER/docker-magicmirror:${arch}-latest .
-  docker push $DOCKER_USER/docker-magicmirror:${arch}-latest
+  docker build --build-arg ARCH=${arch} --build-arg QEMU_BIN=qemu-${QEMU_ARCH}-static -t $DOCKER_USER/docker-magicmirror:${arch} .
+  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+	docker push $DOCKER_USER/docker-magicmirror:${arch}
+  fi
 done
 
 echo "Manifest downloading ..."
@@ -42,4 +47,6 @@ chmod +x manifest-tool
 
 # Run
 echo "Manifest uploading ..."
-./manifest-tool push from-spec manifest.yaml
+if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+	./manifest-tool push from-spec manifest.yaml
+fi
