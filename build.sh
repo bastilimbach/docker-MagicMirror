@@ -3,7 +3,16 @@
 
 QEMU_RELEASE="v3.1.0-2"
 
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+set -e
+
+docker version
+uname -a
+echo "Updating Docker engine to latest version"
+sudo service docker stop
+curl -fsSL https://get.docker.com/ | sudo sh
+docker version
+
+echo "$DOCKER_PASS" | docker login --username "$DOCKER_USER" --password-stdin
 
 echo "QEMU resgistering ..."
 # resgister qemu arch
