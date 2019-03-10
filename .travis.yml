@@ -3,7 +3,7 @@ services:
   - docker
 language: bash
 script:
-  - build.sh
+  - ./build.sh
 after_success:
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
   - docker push $DOCKER_USER/docker-magicmirror:latest
