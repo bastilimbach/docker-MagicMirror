@@ -5,14 +5,7 @@ QEMU_RELEASE="v3.1.0-2"
 
 set -e
 
-docker version
-uname -a
-echo "Updating Docker engine to latest version"
-sudo service docker stop
-curl -fsSL https://get.docker.com/ | sudo sh
-docker version
-
-echo "$DOCKER_PASS" | docker login --username "$DOCKER_USER" --password-stdin
+docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
 
 echo "QEMU resgistering ..."
 # resgister qemu arch
@@ -53,3 +46,5 @@ chmod +x manifest-tool
 ./manifest-tool --help # Just to check that it's working
 
 ./manifest-tool push from-spec manifest.yaml
+
+docker images
