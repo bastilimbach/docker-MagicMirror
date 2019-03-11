@@ -21,7 +21,8 @@ ls qemu-*
 
 echo "Docker image building ..."
 # Build image per arch
-IMAGE_ARCH="amd64 arm32v6 arm32v7 arm64v8 i386"
+IMAGE_ARCH="amd64 arm32v6 arm64v8 i386"
+# arm32v7/node:lts-alpine not found
 for arch in ${IMAGE_ARCH}; do
   QEMU_ARCH=${arch}
   if [[ ${arch} == arm32* ]] ;
