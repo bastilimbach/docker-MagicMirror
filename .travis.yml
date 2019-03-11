@@ -8,11 +8,13 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 script:
+  - docker version
   - ./build.sh
 after_success:
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
-      docker push $DOCKER_USER/docker-magicmirror:latest
+      docker images | grep "magicmirror" | awk '{print $1":"$2}' | xargs -I {} docker push {}
+      #docker push $DOCKER_USER/docker-magicmirror:latest
       ./manifest-tool push from-spec manifest.yaml
     fi
