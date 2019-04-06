@@ -1,11 +1,9 @@
-# https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/
 sudo: required
 services:
   - docker
 language: bash
 script:
   - docker build -t $DOCKER_USER/docker-magicmirror:latest .
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t $DOCKER_USER/docker-magicmirror:raspberry -f ./raspberry/Dockerfile .
 after_success:
   - >
