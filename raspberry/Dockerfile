@@ -1,4 +1,4 @@
-FROM hypriot/rpi-node:latest
+FROM arm32v7/node:latest
 
 ENV NODE_ENV production
 
