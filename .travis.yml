@@ -8,17 +8,24 @@ addons:
       - docker-ce
 before_script:
   - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
+  - sudo mkdir $HOME/.docker
+  - sudo touch $HOME/.docker/config.json
+  - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
   - sudo service docker restart
+  - docker info
+  - docker version
 script:
   - docker build -t $DOCKER_USER/docker-magicmirror:amd64 .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t $DOCKER_USER/docker-magicmirror:arm .
-  - docker manifest create $DOCKER_USER/docker-MagicMirror:latest $DOCKER_USER/docker-MagicMirror:arm $DOCKER_USER/docker-MagicMirror:amd64
-  - docker manifest annotate --arch arm $DOCKER_USER/docker-MagicMirror $DOCKER_USER/docker-MagicMirror:arm
-  - docker manifest inspect $DOCKER_USER/docker-MagicMirror
 after_success:
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
-      docker manifest push bastilimbach/docker-MagicMirror
+      docker push $DOCKER_USER/docker-magicmirror:amd64
+      docker push $DOCKER_USER/docker-magicmirror:arm
+      docker manifest create $DOCKER_USER/docker-magicmirror:latest $DOCKER_USER/docker-magicmirror:arm $DOCKER_USER/docker-magicmirror:amd64
+      docker manifest annotate --arch arm $DOCKER_USER/docker-magicmirror $DOCKER_USER/docker-magicmirror:arm
+      docker manifest inspect $DOCKER_USER/docker-magicmirror
+      docker manifest push bastilimbach/docker-magicmirror
     fi
