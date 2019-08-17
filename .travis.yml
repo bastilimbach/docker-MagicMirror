@@ -8,8 +8,8 @@ addons:
       - docker-ce
 before_script:
   - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
-  - sudo mkdir $HOME/.docker
-  - sudo touch $HOME/.docker/config.json
+  - mkdir $HOME/.docker
+  - touch $HOME/.docker/config.json
   - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
   - sudo service docker restart
   - docker info
