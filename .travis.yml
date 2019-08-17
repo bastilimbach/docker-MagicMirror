@@ -1,0 +1,12 @@
+sudo: required
+services:
+  - docker
+language: bash
+script:
+  - docker build -t $DOCKER_USER/docker-magicmirror:latest .
+after_success:
+  - >
+    if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+      echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
+      docker push $DOCKER_USER/docker-magicmirror:latest
+    fi
