@@ -2,9 +2,8 @@ sudo: required
 services:
   - docker
 language: bash
-env:
-  global:
-    - DOCKER_CLI_EXPERIMENTAL=enabled
+before_script:
+  - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
 script:
   - docker build -t $DOCKER_USER/docker-magicmirror:amd64 .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
