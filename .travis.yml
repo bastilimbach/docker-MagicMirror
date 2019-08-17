@@ -2,11 +2,19 @@ sudo: required
 services:
   - docker
 language: bash
+env:
+  global:
+    - DOCKER_CLI_EXPERIMENTAL=enabled
 script:
-  - docker build -t $DOCKER_USER/docker-magicmirror:latest .
+  - docker build -t $DOCKER_USER/docker-magicmirror:amd64 .
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker build -t $DOCKER_USER/docker-magicmirror:arm .
+  - docker manifest create $DOCKER_USER/docker-MagicMirror:latest $DOCKER_USER/docker-MagicMirror:arm $DOCKER_USER/docker-MagicMirror:amd64
+  - docker manifest annotate --arch arm $DOCKER_USER/docker-MagicMirror $DOCKER_USER/docker-MagicMirror:arm
+  - docker manifest inspect $DOCKER_USER/docker-MagicMirror
 after_success:
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
-      docker push $DOCKER_USER/docker-magicmirror:latest
+      docker manifest push bastilimbach/docker-MagicMirror
     fi
