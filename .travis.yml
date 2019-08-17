@@ -2,6 +2,10 @@ sudo: required
 services:
   - docker
 language: bash
+addons:
+  apt:
+    packages:
+      - docker-ce
 before_script:
   - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
   - sudo service docker restart
