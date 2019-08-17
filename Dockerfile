@@ -1,21 +1,18 @@
-FROM node:latest
+FROM node:12-stretch
+
+RUN apt-get update
 
 ENV NODE_ENV production
-
 WORKDIR /opt/magic_mirror
 
 RUN git clone --depth 1 -b master https://github.com/MichMich/MagicMirror.git .
-
 RUN cp -R modules /opt/default_modules
 RUN cp -R config /opt/default_config
 RUN npm install --unsafe-perm --silent
 
-COPY docker-entrypoint.sh /opt
-RUN apt-get update \
-  && apt-get -qy install dos2unix \
-  && dos2unix /opt/docker-entrypoint.sh \
-  && chmod +x /opt/docker-entrypoint.sh
+COPY mm-docker-config.js docker-entrypoint.sh ./
+RUN chmod +x ./docker-entrypoint.sh
 
 EXPOSE 8080
-CMD ["node serveronly"]
-ENTRYPOINT ["/opt/docker-entrypoint.sh"]
+ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["node", "serveronly"]
