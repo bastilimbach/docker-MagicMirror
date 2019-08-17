@@ -4,13 +4,13 @@
 
 [![DockerHub Badge](https://dockeri.co/image/bastilimbach/docker-magicmirror)](https://hub.docker.com/r/bastilimbach/docker-magicmirror/)
 
-# Why Docker? [![Build Status](https://travis-ci.org/bastilimbach/docker-MagicMirror.svg?branch=master)](https://travis-ci.org/bastilimbach/docker-MagicMirror)
+# Why Docker?
 In some cases, you want to start the application without an actual app window. In this case, you can start MagicMirror² in server only mode by manually running `node serveronly` or using Docker. This will start the server, after which you can open the application in your browser of choice.
 
-# Supported tags and respective `Dockerfile` links
+# Supported architectures
 
-- `latest` - Latest MagicMirror² server ([Dockerfile](https://github.com/bastilimbach/docker-MagicMirror/blob/master/Dockerfile))
-- `raspberry` - ARM based version to work with a Raspberry Pi ([Dockerfile](https://github.com/bastilimbach/docker-MagicMirror/blob/master/raspberry/Dockerfile))
+- `amd64` - 64 Bit based architectures (e.g: macOS, Linux, etc.)
+- `arm` - Raspberry Pi and any other arm based architectures
 
 > The respective docker images are getting updated daily by a cron job from Travis CI.
 
@@ -30,21 +30,21 @@ docker run  -d \
 # Volumes
 | **Volume** | **Description** |
 | --- | --- |
-| `/opt/magic_mirror/config` | Mount this folder to insert your own config into the docker container. |
-| `/opt/magic_mirror/modules` | Mount this folder to add your own custom modules into the docker container. |
+| `/opt/magic_mirror/config` | Mount this folder to insert your own config into the docker container. If the folder is empty the container will create a default configuration which can be adapted to you likings. |
+| `/opt/magic_mirror/modules` | Mount this folder to add your own custom modules into the docker container. If the folder is empty the container will copy the [default modules](https://github.com/MichMich/MagicMirror/tree/master/modules/default) from the MagicMirror² repository into the volume. |
 | `/opt/magic_mirror/css/custom.css` | Mount this file to add your own custom css into the docker container. <br><br> **Important:** You need to create the file before you run the container. Otherwise Docker will create a `custom.css` folder. |
 
 # Config
-You need to configure your MagicMirror² config to listen on any interface and allow every ip address.
+If you start the container without providing a custom configuration it will create a default config inside the `config` volume if it is empty.
+This config can then be adapted to your likings.
 
+If you want to build the configuration by yourself be sure to set the following configuration properties accordingly:
 ```javascript
 var config = {
-    address: "",
-    port: 8080,
-    ipWhitelist: []
+	address: "", // Needs to be either "", "0.0.0.0" or "::" to make MagicMirror listen on any interface.
+	port: 8080, // If you change the port, be sure to also adapt the "--publish" flag in your docker run command. e.g: --publish 80:3000
+	ipWhitelist: [] // This is required to allow all IP addresses to access MagicMirror. Can also be set to the docker subnet.
 }
-
-if (typeof module !== "undefined") { module.exports = config; }
 ```
 
 # Contribution
