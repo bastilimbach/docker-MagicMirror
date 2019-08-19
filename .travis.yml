@@ -18,14 +18,17 @@ script:
   - docker build -t $DOCKER_USER/docker-magicmirror:amd64 .
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t $DOCKER_USER/docker-magicmirror:arm .
+  - docker build -t $DOCKER_USER/docker-magicmirror:arm64 .
 after_success:
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
       echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
       docker push $DOCKER_USER/docker-magicmirror:amd64
       docker push $DOCKER_USER/docker-magicmirror:arm
+      docker push $DOCKER_USER/docker-magicmirror:arm64
       docker manifest create $DOCKER_USER/docker-magicmirror:latest $DOCKER_USER/docker-magicmirror:arm $DOCKER_USER/docker-magicmirror:amd64
       docker manifest annotate --arch arm $DOCKER_USER/docker-magicmirror $DOCKER_USER/docker-magicmirror:arm
+      docker manifest annotate --arch arm64 $DOCKER_USER/docker-magicmirror $DOCKER_USER/docker-magicmirror:arm64
       docker manifest inspect $DOCKER_USER/docker-magicmirror
       docker manifest push bastilimbach/docker-magicmirror
     fi
