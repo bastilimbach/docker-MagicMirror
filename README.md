@@ -23,7 +23,7 @@ After a successful [Docker installation](https://docs.docker.com/engine/installa
 docker run  -d \
     --publish 80:8080 \
     --restart always \
-    --env TZ=Europe\Stockholm \
+    --env TZ=Europe/Stockholm \
     --volume ~/magic_mirror/config:/opt/magic_mirror/config \
     --volume ~/magic_mirror/modules:/opt/magic_mirror/modules \
     --volume /etc/localtime:/etc/localtime:ro \
@@ -35,7 +35,7 @@ docker run  -d \
 
 | **Variable** | **Description** |
 | --- | --- |
-| `TZ=Europe\Stockholm` | Let the enviromnet variable TZ reflect the time zone. Without the correct time zone the MagicMirror² calendar or other modules might show the wrong time of an event. Find you time zone here <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>   |
+| `TZ=Europe/Stockholm` | Let the enviromnet variable TZ reflect the time zone. Without the correct time zone the MagicMirror² calendar or other modules might show the wrong time of an event. Find you time zone here <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>   |
 
 # Volumes
 
@@ -55,7 +55,7 @@ If you want to build the configuration by yourself be sure to set the following 
 
 ```javascript
 var config = {
-    address: "", // Needs to be either "", "0.0.0.0" or "::" to make MagicMirror listen on any interface.
+    address: "0.0.0.0", // Needs to be "0.0.0.0" to make MagicMirror listen on any interface.
     port: 8080, // If you change the port, be sure to also adapt the "--publish" flag in your docker run command. e.g: --publish 80:3000
     ipWhitelist: [] // This is required to allow all IP addresses to access MagicMirror. Can also be set to the docker subnet.
 }
