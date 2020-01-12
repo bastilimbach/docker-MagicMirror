@@ -55,7 +55,7 @@ If you want to build the configuration by yourself be sure to set the following 
 
 ```javascript
 var config = {
-    address: "", // Needs to be either "", "0.0.0.0" or "::" to make MagicMirror listen on any interface.
+    address: "0.0.0.0", // Needs to be "0.0.0.0" to make MagicMirror listen on any interface.
     port: 8080, // If you change the port, be sure to also adapt the "--publish" flag in your docker run command. e.g: --publish 80:3000
     ipWhitelist: [] // This is required to allow all IP addresses to access MagicMirror. Can also be set to the docker subnet.
 }
