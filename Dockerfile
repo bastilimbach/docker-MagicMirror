@@ -1,7 +1,5 @@
 FROM node:12-buster
 
-RUN apt-get update
-
 ENV NODE_ENV production
 WORKDIR /opt/magic_mirror
 
