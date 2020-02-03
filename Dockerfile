@@ -1,4 +1,4 @@
-FROM node:12-stretch
+FROM node:12-buster
 
 RUN apt-get update
 
