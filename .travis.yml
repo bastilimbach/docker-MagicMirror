@@ -1,34 +1,26 @@
+dist: xenial
 sudo: required
 services:
   - docker
 language: bash
-addons:
-  apt:
-    packages:
-      - docker-ce
 before_script:
+  # needs docker 19.03:
+  - curl -fsSL https://get.docker.com | sh
   - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
   - mkdir $HOME/.docker
   - touch $HOME/.docker/config.json
   - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
-  - sudo service docker restart
+  - sudo service docker start
   - docker info
   - docker version
 script:
-  - docker build -t $DOCKER_USER/docker-magicmirror:amd64 .
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker build -t $DOCKER_USER/docker-magicmirror:arm .
-  - docker build -t $DOCKER_USER/docker-magicmirror:arm64 .
-after_success:
+  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  - docker buildx create --name xbuilder --use
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
-      docker push $DOCKER_USER/docker-magicmirror:amd64
-      docker push $DOCKER_USER/docker-magicmirror:arm
-      docker push $DOCKER_USER/docker-magicmirror:arm64
-      docker manifest create $DOCKER_USER/docker-magicmirror:latest $DOCKER_USER/docker-magicmirror:arm $DOCKER_USER/docker-magicmirror:arm64 $DOCKER_USER/docker-magicmirror:amd64
-      docker manifest annotate --arch arm $DOCKER_USER/docker-magicmirror $DOCKER_USER/docker-magicmirror:arm
-      docker manifest annotate --arch arm64 $DOCKER_USER/docker-magicmirror $DOCKER_USER/docker-magicmirror:arm64
-      docker manifest inspect $DOCKER_USER/docker-magicmirror
-      docker manifest push bastilimbach/docker-magicmirror
+      echo "$DOCKER_PASS" | docker login -u ${DOCKER_USER} --password-stdin
+      dopush="--push"
     fi
+  - docker buildx build --progress plain --platform=linux/amd64,linux/arm64,linux/arm/v7 ${dopush} -t ${DOCKER_USER}/docker-magicmirror:latest .
+after_script:
+  - docker logout
