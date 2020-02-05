@@ -1,6 +1,4 @@
-FROM node:12-stretch
-
-RUN apt-get update
+FROM node:12-buster
 
 ENV NODE_ENV production
 WORKDIR /opt/magic_mirror
