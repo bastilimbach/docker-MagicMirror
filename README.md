@@ -32,10 +32,11 @@ docker run  -d \
 ```
 
 # Environment variables
+Environment variables can be passed to the docker container using the `--env` flag.
 
 | **Variable** | **Description** |
 | --- | --- |
-| `TZ=Europe/Stockholm` | Let the enviromnet variable TZ reflect the time zone. Without the correct time zone the MagicMirror² calendar or other modules might show the wrong time of an event. Find you time zone here <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>   |
+| `TZ` | Let the enviromnet variable TZ reflect the time zone. Without the correct time zone the MagicMirror² calendar or other modules might show the wrong time of an event. Find you time zone here <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>   |
 
 # Volumes
 
@@ -83,12 +84,14 @@ services:
       - 8888:8080
 ```
 
-## Note
+## Remarks
+
+**Time zones**
 
 When it comes to time and time zones, MagicMirror² and the individual modules might use these differently.
 The device that presents the generated page must have the correct time and time zones settings as well. The MagicMirror² default clock uses the local device's time zone to render the time.
 
-Eg. if you use a Raspberry Pi to show the generated result of the MagicMirror² docker, set the time zone on the RPi with
+E.g: If you use a Raspberry Pi to show the generated result of the MagicMirror² docker, set the time zone on the RPi with
 
 ```bash
 sudo raspi-config
