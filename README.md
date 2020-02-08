@@ -23,7 +23,6 @@ After a successful [Docker installation](https://docs.docker.com/engine/installa
 docker run  -d \
     --publish 80:8080 \
     --restart always \
-    --env TZ=Europe/Stockholm \
     --volume ~/magic_mirror/config:/opt/magic_mirror/config \
     --volume ~/magic_mirror/modules:/opt/magic_mirror/modules \
     --volume /etc/localtime:/etc/localtime:ro \
