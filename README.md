@@ -66,15 +66,13 @@ var config = {
 If docker-compose is your game, here is an example of such.
 It will publish the MagicMirror² server on port 8888.
 
-```bash
+```yml
 version: '3'
 services:
   magicmirror:
     container_name: magicmirror
     image: bastilimbach/docker-magicmirror
     restart: unless-stopped
-    environment:
-      - TZ=Europe/Stockholm
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ~/magic_mirror/config:/opt/magic_mirror/config
