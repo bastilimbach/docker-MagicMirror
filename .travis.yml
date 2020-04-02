@@ -20,7 +20,7 @@ script:
   # Login to Docker Hub and configure push behaviour if we are on master
   - >
     if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-      echo "$DOCKER_PASS" | docker login -u ${DOCKER_USER} --password-stdin
+      echo "$DOCKER_PASS" | docker login -u bastilimbach --password-stdin
       dopush="--push"
     fi
   # Build the latest stable MagicMirror release
