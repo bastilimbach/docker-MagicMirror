@@ -8,10 +8,11 @@
 
 In some cases, you want to start the application without an actual app window. In this case, you can start MagicMirror² in server only mode by manually running `node serveronly` or using Docker. This will start the server, after which you can open the application in your browser of choice.
 
-# Supported architectures
+# Tags
 
-- `amd64` - 64 Bit based architectures (e.g: macOS, Linux, etc.)
-- `arm` - Raspberry Pi and any other arm based architectures
+- `latest` - The [latest stable release](https://github.com/MichMich/MagicMirror/releases/latest) of MagicMirror.
+- `develop` - Image based on the [`develop`](https://github.com/MichMich/MagicMirror/tree/develop) branch.
+- `vX.Y.Z`- Specific MagicMirror release. Take a look at the [releases](https://github.com/MichMich/MagicMirror/releases) page in the MagicMirror repository to get the correct version number.
 
 > The respective docker images are getting updated daily by a cron job from Travis CI.
 
@@ -45,6 +46,12 @@ Environment variables can be passed to the docker container using the `--env` fl
 | `/opt/magic_mirror/modules` | Mount this folder to add your own custom modules into the docker container. If the folder is empty the container will copy the [default modules](https://github.com/MichMich/MagicMirror/tree/master/modules/default) from the MagicMirror² repository into the volume. |
 | `/opt/magic_mirror/css/custom.css` | Mount this file to add your own custom css into the docker container. <br><br> **Important:** You need to create the file before you run the container. Otherwise Docker will create a `custom.css` folder. |
 | `/etc/localtime:/etc/localtime:ro` | Add this to syncronize the time of the host with the docker container. <br><br> **Important:** This is for linux hosts. If you run your docker on other OS, you will need to change this. |
+
+# Build arguments
+
+| **Build variable** | **Description** |
+| --- | --- |
+| `branch` | Specify a branch or tag of the [MagicMirror repository](https://github.com/MichMich/MagicMirror) which should be used for building the image. Default: `master` |
 
 # Config
 
