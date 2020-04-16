@@ -36,7 +36,7 @@ Environment variables can be passed to the docker container using the `--env` fl
 
 | **Variable** | **Description** |
 | --- | --- |
-| `TZ` | Let the enviromnet variable TZ reflect the time zone. Without the correct time zone the MagicMirror² calendar or other modules might show the wrong time of an event. Find you time zone here <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>   |
+| `TZ` | Let the environment variable TZ reflect the time zone. Without the correct time zone the MagicMirror² calendar or other modules might show the wrong time of an event. Find you time zone here <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>   |
 
 # Volumes
 
