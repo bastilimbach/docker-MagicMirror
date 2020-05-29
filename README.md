@@ -105,7 +105,7 @@ and choose 'Localisation options'
 
 # Contribution
 
-I'm happy to accept Pull Requests! Please note that this project is released with a [Contributor Code of Conduct](https://github.com/bastilimbach/docker-MagicMirror/blob/master/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+I'm happy to accept Pull Requests! Please note that this project is released with a [Contributor Code of Conduct](https://github.com/bastilimbach/docker-MagicMirror/blob/master/.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
 # License
 [MIT](https://github.com/bastilimbach/docker-MagicMirror/blob/master/LICENSE) ❤️
