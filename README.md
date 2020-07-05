@@ -58,6 +58,15 @@ Environment variables can be passed to the docker container using the `--env` fl
 If you start the container without providing a custom configuration it will create a default config inside the `config` volume if it is empty.
 This config can then be adapted to your likings.
 
+To keep passwords and API secrets out of the config file add `.template` as extension to the config file (`config.js.template`) and use shell variable syntax (`${MY_API_TOKEN}`) as placeholder for your secrets in the config file.
+Don't forget to pass the template variables as environment to the container.
+For example: `--env MY_API_TOKEN=secret-token`
+or in docker compose file:
+```yml
+    environment:
+      - MY_API_TOKEN=secret-token
+```
+
 If you want to build the configuration by yourself be sure to set the following configuration properties accordingly:
 
 ```javascript

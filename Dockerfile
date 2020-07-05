@@ -1,5 +1,10 @@
 FROM node:12-buster
 
+RUN set -e; \
+    apt update; \
+    apt install -y gettext; \
+    rm -rf /var/lib/apt/lists/*
+
 ARG branch=master
 
 ENV NODE_ENV production
