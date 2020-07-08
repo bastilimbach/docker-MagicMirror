@@ -1,3 +1,6 @@
+#!/bin/bash
+set -e
+
 rm -rf ./config
 rm -rf ./modules
 mkdir config
