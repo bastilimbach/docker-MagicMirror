@@ -7,8 +7,7 @@ WORKDIR /opt/magic_mirror
 
 # get magic mirror
 RUN apk update && apk add --no-cache git \
-    && git clone --depth 1 -c advice.detachedHead=false -b ${branch} https://github.com/MichMich/MagicMirror.git . \
-    && apk del git
+    && git clone --depth 1 -c advice.detachedHead=false -b ${branch} https://github.com/MichMich/MagicMirror.git .
 
 # save default modules and configuration and install dependencies
 RUN set -o pipefail \
