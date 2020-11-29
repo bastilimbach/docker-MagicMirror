@@ -1,0 +1,273 @@
+apiVersion: v1
+data:
+  config: |
+    var config = {
+            address: "0.0.0.0",
+            port: 80,
+            ipWhitelist: [],
+
+            language: "en",
+            timeFormat: 24,
+            units: "metric",
+            timezone: "Europe/Berlin",
+
+            modules: [
+                    {
+                            module: "alert",
+                    },
+                    {
+                            module: "clock",
+                            position: "top_left",
+                            config:{
+                                    showWeek: true,
+                                    clockBold: true,
+                            }
+                    },
+                    {
+                            module: 'MMM-GrafanaChart',
+                            position: 'top_left',
+                            config: {
+                                    protocol: "https",
+                                    host: "grafana.ak-online.be",
+                                    port: 443,
+                                    dashboardname: "magic-mirror-graphs",
+                                    orgId: 1,
+                                    panelId: 4,
+                                    width: "100%",
+                                    height: "100%",
+                                    refreshInterval: 900,
+                            }
+                    },
+                    {
+                            module: "currentweather",
+                            position: "top_right",
+                            config: {
+                                    location: "Dresden, Germany",
+                                    locationID: "2935022",
+                                    appid: "actually not an API key"
+                            }
+                    },
+                    {
+                            module: 'MMM-GrafanaChart',
+                            position: 'top_right',
+                            config: {
+                                    protocol: "https",
+                                    host: "grafana.ak-online.be",
+                                    port: 443,
+                                    dashboardname: "magic-mirror-graphs",
+                                    orgId: 1,
+                                    panelId: 2,
+                                    width: "100%",
+                                    height: "100%",
+                                    refreshInterval: 900,
+                            }
+                    },
+                    {
+                            module: 'MMM-CalendarExt2',
+                            config: {
+                                    rotateInterval: 60*1000,
+                                    deduplicateEventsOn: [
+                                            "startDate", "endDate", "title",
+                                    ],
+                                    scenes:[
+                                            {
+                                                    name: "DEFAULT",
+                                                    views: ["current","upcoming"],
+                                            },
+                                    ],
+                                    views:[
+                                            {
+                                                    name: "current",
+                                                    mode: "current",
+                                                    position: "top_center",
+                                                    maxDays: 1,
+                                                    locale: "en",
+                                                    hideOverflow: false,
+                                                    filterPassedEvent: true,
+                                            },
+                                            {
+                                                    name: "upcoming",
+                                                    mode: "upcoming",
+                                                    position: "top_center",
+                                                    maxDays: 1,
+                                                    locale: "en",
+                                                    hideOverflow: false,
+                                                    filterPassedEvent: true,
+                                                    useEventTimeRelative: false,
+                                            },
+                                    ],
+                                    calendars: [
+                                            {
+                                                    name: "Anja",
+                                                    url: "http://calserv/AnjaPrivate.ics",
+                                            },
+                                            {
+                                                    name: "Anja Work",
+                                                    url: "http://calserv/O365_Anja.ics",
+                                                    filter: (event) => {
+                                                            if (event.ms_busystatus == "TENTATIVE") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Blocker") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Need to be home") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Vacation") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "OoO") {
+                                                                    return false
+                                                            }
+                                                            if (event.title.startsWith("Canceled:")) {
+                                                                    return false
+                                                            }
+                                                            return true
+                                                    },
+                                            },
+                                            {
+                                                    name: "Andre",
+                                                    url: "http://calserv/AndrePrivate.ics",
+                                            },
+                                            {
+                                                    name: "Andre Work",
+                                                    url: "http://calserv/O365_Andre.ics",
+                                                    filter: (event) => {
+                                                            if (event.title == "Blocker") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Need to be home") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Vacation") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "OoO") {
+                                                                    return false
+                                                            }
+                                                            if (event.title.startsWith("Canceled:")) {
+                                                                    return false
+                                                            }
+                                                            return true
+                                                    },
+                                            },
+                                            {
+                                                    name: "Tobi",
+                                                    url: "http://calserv/TobiPrivate.ics",
+                                                    filter: (event) => {
+                                                            if (event.title == "Schule") {
+                                                                    return false
+                                                            }
+                                                            return true
+                                                    },
+                                            },
+                                            {
+                                                    name: "Tobi Shared",
+                                                    url: "http://calserv/TobiShared.ics",
+                                            },
+                                    ],
+                            },
+                    },
+                    {
+                      module: 'MMM-Cursor',
+                      config: {
+                        timeout: 2500
+                      }
+                    }
+            ]
+
+    };
+
+    /*************** DO NOT EDIT THE LINE BELOW ***************/
+    if (typeof module !== "undefined") {module.exports = config;}
+  css-custom: |
+    /*****************************************************
+     * Magic Mirror                                      *
+     * Custom CSS                                        *
+     *                                                   *
+     * By Michael Teeuw http://michaelteeuw.nl           *
+     * MIT Licensed.                                     *
+     *                                                   *
+     * Add any custom CSS below.                         *
+     * Changes to this files will be ignored by GIT. *
+     *****************************************************/
+
+    body {
+            margin: 10px;
+            height: calc(100% - 20px);
+            width: calc(100% - 30px);
+    }
+
+    .region.top.right,
+    .region.top.left,
+    .region.top.center {
+            min-width: 410px;
+    }
+
+    .CX2 .current .eventCount_0 {
+            display: none;
+    }
+    .CX2 .agenda .eventSub {
+            display:none;
+    }
+    .CX2 .daily .fullday .eventTime {
+            display:none;
+    }
+    .CX2 .slot > .slotContent {
+            background: none;
+    }
+    .CX2 .slot .event{
+            background: none;
+    }
+    .CX2 .slot .slotHeader{
+            background-color: inherit;
+            text-transform: uppercase;
+            font-size: 15px;
+            font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+            font-weight: 400;
+            border-bottom: 1px solid #666;
+            line-height: 15px;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #999;
+    }
+    .CX2 .today .slotHeader * {
+            color: inherit;
+    }
+    .CX2 .event.fullday {
+            color: inherit;
+    }
+    .CX2 .slot .slotFooter {
+            display: none;
+    }
+    .CX2 .event {
+            border-left: #000000 solid;
+    }
+    .CX2 .event[data-calendar-name="Andre"],
+    .CX2 .event[data-calendar-name="Andre Work"] {
+            /*color: #ce4138;*/
+            border-left: #ce4138 solid;
+    }
+    .CX2 .event[data-calendar-name="Anja"],
+    .CX2 .event[data-calendar-name="Anja Work"] {
+            /*color: #c632ff;*/
+            border-left: #c632ff solid;
+    }
+    .CX2 .event[data-calendar-name="Tobi"],
+    .CX2 .event[data-calendar-name="Tobi Shared"] {
+            /*color: #d2cf2a;*/
+            border-left: #d2cf2a solid;
+    }
+
+    #SPOTIFY_BACKGROUND {
+      display: none;
+    }
+
+    .MMM-mqtt .value {
+            font-size: 10pt;
+    }
+kind: ConfigMap
+metadata:
+  name: s
+  namespace: magicmirror

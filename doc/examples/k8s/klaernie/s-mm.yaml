@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: s-mm
+  name: s-mm
+  namespace: magicmirror
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s-mm
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: s-mm
+        kind: magic-mirror
+    spec:
+      containers:
+      - image: bastilimbach/docker-magicmirror:latest
+        name: mm
+        resources: {}
+        env:
+          - name: TZ
+            value: "Europe/Berlin"
+        ports:
+          - name: web
+            containerPort: 80
+        volumeMounts:
+            - name: config
+              mountPath: "/opt/magic_mirror/config"
+            - name: config
+              mountPath: "/opt/magic_mirror/css/custom.css"
+              subPath: "custom.css"
+            - name: nfs
+              mountPath: "/opt/magic_mirror/modules"
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
+      - name: config
+        configMap:
+          name: s
+          items:
+            - key: config
+              path: config.js
+            - key: css-custom
+              path: custom.css
+status: {}
