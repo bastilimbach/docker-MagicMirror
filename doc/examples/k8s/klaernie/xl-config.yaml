@@ -1,0 +1,371 @@
+apiVersion: v1
+data:
+  config: |
+    var config = {
+            address: "0.0.0.0",
+            port: 80,
+            ipWhitelist: [],
+
+            language: "en",
+            timeFormat: 24,
+            units: "metric",
+            timezone: "Europe/Berlin",
+
+            modules: [
+                    {
+                            module: "alert",
+                    },
+                    {
+                            module: "MMM-chromecast",
+                            position: "top_right",
+                            disabled: true,
+                    },
+                    {
+                            module: "clock",
+                            position: "top_left",
+                            config:{
+                                    showWeek: true,
+                                    clockBold: true,
+                            }
+                    },
+                    {
+                            module: "currentweather",
+                            position: "top_right",
+                            config: {
+                                    location: "Dresden, Germany",
+                                    locationID: "2935022",  //ID from http://bulk.openweathermap.org/sample/; unzip the gz file and find your city
+                                    appid: "actually not an API key"
+                            }
+                    },
+                    {
+                            module: 'MMM-GrafanaChart',
+                            position: 'top_right',
+                            config: {
+                                    protocol: "https",
+                                    host: "grafana.ak-online.be",
+                                    port: 443,
+                                    dashboardname: "magic-mirror-graphs",
+                                    orgId: 1,
+                                    panelId: 2,
+                                    width: "100%",
+                                    height: "200px",
+                                    refreshInterval: 900,
+                            }
+                    },
+                    {
+                            module: 'MMM-GrafanaChart',
+                            position: 'top_right',
+                            config: {
+                                    protocol: "https",
+                                    host: "grafana.ak-online.be",
+                                    port: 443,
+                                    dashboardname: "magic-mirror-graphs",
+                                    orgId: 1,
+                                    panelId: 4,
+                                    width: "100%",
+                                    height: "200px",
+                                    refreshInterval: 900,
+                            }
+                    },
+                    {
+                            module: 'MMM-CalendarExt2',
+                            config: {
+                                    rotateInterval: 60*1000,
+                                    deduplicateEventsOn: [
+                                            "startDate", "endDate", "title",
+                                    ],
+                                    scenes:[
+                                            {
+                                                    name: "DEFAULT",
+                                                    views: ["current","upcoming","Overview Private"],
+                                            },
+                                            {
+                                                    name: "WorkMode",
+                                                    views: ["current","upcoming","Overview Work"],
+                                            },
+                                    ],
+                                    views:[
+                                            {
+                                                    name: "current",
+                                                    mode: "current",
+                                                    position: "top_left",
+                                                    maxDays: 1,
+                                                    locale: "en",
+                                                    hideOverflow: false,
+                                                    filterPassedEvent: true,
+                                            },
+                                            {
+                                                    name: "upcoming",
+                                                    mode: "upcoming",
+                                                    position: "top_left",
+                                                    maxDays: 1,
+                                                    locale: "en",
+                                                    hideOverflow: false,
+                                                    filterPassedEvent: true,
+                                                    useEventTimeRelative: false,
+                                            },
+                                            {
+                                                    name: "Overview Private",
+                                                    title: "Private Calendars",
+                                                    mode: "daily",
+                                                    type: "row",
+                                                    position: "bottom_bar",
+                                                    slotCount: 7,
+                                                    locale: "en",
+                                                    hideOverflow: false,
+                                                    filterPassedEvent: true,
+                                                    calendars: [
+                                                            "Anja",
+                                                            "Andre",
+                                                            "Tobi",
+                                                            "Tobi Shared",
+                                                            "Anja|Andre|Tobi|Tobi Shared", "Anja|Andre|Tobi Shared|Tobi", "Anja|Tobi|Andre|Tobi Shared", "Anja|Tobi|Tobi Shared|Andre", "Anja|Tobi Shared|Andre|Tobi", "Anja|Tobi Shared|Tobi|Andre", "Andre|Anja|Tobi Shared|Tobi", "Andre|Anja|Tobi|Tobi Shared", "Andre|Tobi|Tobi Shared|Anja", "Andre|Tobi|Anja|Tobi Shared", "Andre|Tobi Shared|Tobi|Anja", "Andre|Tobi Shared|Anja|Tobi", "Tobi|Anja|Andre|Tobi Shared", "Tobi|Anja|Tobi Shared|Andre", "Tobi|Andre|Anja|Tobi Shared", "Tobi|Andre|Tobi Shared|Anja", "Tobi|Tobi Shared|Anja|Andre", "Tobi|Tobi Shared|Andre|Anja", "Tobi Shared|Anja|Tobi|Andre", "Tobi Shared|Anja|Andre|Tobi", "Tobi Shared|Andre|Tobi|Anja", "Tobi Shared|Andre|Anja|Tobi", "Tobi Shared|Tobi|Andre|Anja", "Tobi Shared|Tobi|Anja|Andre",
+                                                            "Anja|Andre|Tobi", "Anja|Andre|Tobi Shared", "Anja|Tobi|Andre", "Anja|Tobi|Tobi Shared", "Anja|Tobi Shared|Andre", "Anja|Tobi Shared|Tobi", "Andre|Anja|Tobi Shared", "Andre|Anja|Tobi", "Andre|Tobi|Tobi Shared", "Andre|Tobi|Anja", "Andre|Tobi Shared|Tobi", "Andre|Tobi Shared|Anja", "Tobi|Anja|Andre", "Tobi|Anja|Tobi Shared", "Tobi|Andre|Anja", "Tobi|Andre|Tobi Shared", "Tobi|Tobi Shared|Anja", "Tobi|Tobi Shared|Andre", "Tobi Shared|Anja|Tobi", "Tobi Shared|Anja|Andre", "Tobi Shared|Andre|Tobi", "Tobi Shared|Andre|Anja", "Tobi Shared|Tobi|Andre", "Tobi Shared|Tobi|Anja",
+                                                            "Anja|Andre", "Anja|Tobi", "Anja|Tobi Shared", "Andre|Anja", "Andre|Tobi", "Andre|Tobi Shared", "Tobi|Anja", "Tobi|Andre", "Tobi|Tobi Shared", "Tobi Shared|Anja", "Tobi Shared|Andre", "Tobi Shared|Tobi",
+                                                    ],
+                                            },
+                                            {
+                                                    name: "Overview Work",
+                                                    title: "Work Calendars",
+                                                    mode: "daily",
+                                                    type: "row",
+                                                    position: "bottom_bar",
+                                                    slotCount: 7,
+                                                    locale: "en",
+                                                    hideOverflow: false,
+                                                    filterPassedEvent: true,
+                                                    calendars: ["Anja Work","Andre Work","Anja Work|Andre Work","Andre Work|Anja Work"],
+                                            },
+                                    ],
+                                    calendars: [
+                                            {
+                                                    name: "Anja",
+                                                    url: "http://calserv/AnjaPrivate.ics",
+                                            },
+                                            {
+                                                    name: "Anja Work",
+                                                    url: "http://calserv/O365_Anja.ics",
+                                                    filter: (event) => {
+                                                            if (event.ms_busystatus == "TENTATIVE") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Blocker") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Need to be home") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Vacation") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "OoO") {
+                                                                    return false
+                                                            }
+                                                            if (event.title.startsWith("Canceled:")) {
+                                                                    return false
+                                                            }
+                                                            return true
+                                                    },
+                                            },
+                                            {
+                                                    name: "Andre",
+                                                    url: "http://calserv/AndrePrivate.ics",
+                                            },
+                                            {
+                                                    name: "Andre Work",
+                                                    url: "http://calserv/O365_Andre.ics",
+                                                    filter: (event) => {
+                                                            if (event.title == "Blocker") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Need to be home") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "Vacation") {
+                                                                    return false
+                                                            }
+                                                            if (event.title == "OoO") {
+                                                                    return false
+                                                            }
+                                                            if (event.title.startsWith("Canceled:")) {
+                                                                    return false
+                                                            }
+                                                            return true
+                                                    },
+                                            },
+                                            {
+                                                    name: "Tobi",
+                                                    url: "http://calserv/TobiPrivate.ics",
+                                                    filter: (event) => {
+                                                            if (event.title == "Schule") {
+                                                                    return false
+                                                            }
+                                                            return true
+                                                    },
+                                            },
+                                            {
+                                                    name: "Tobi Shared",
+                                                    url: "http://calserv/TobiShared.ics",
+                                            },
+                                    ],
+                            },
+                    },
+                    {
+                      module: "MMM-GooglePhotos",
+                      position: "top_center",
+                      config: {
+                          albums: ["MagicMirror"],
+                          updateInterval: 1000 * 30,
+                          sort: "random",
+                          showWidth: 1800,
+                          showHeight: 1000,
+                          timeFormat: "relative",
+                      }
+                    },
+                    {
+                      module: "MMM-Spotify",
+                      position: "bottom_right", // "bottom_bar" or "top_bar" for miniBar
+                      config: {
+                        debug: false, // debug mode
+                        style: "mini", // "default" or "mini" available (inactive for miniBar)
+                        control: "default",
+                        accountDefault: 0, // default account number, attention : 0 is the first account
+                        updateInterval: 1000, // update interval when playing
+                        idleInterval: 30000, // update interval on idle
+                        onStart: null, // disable onStart feature with `null`
+                        deviceDisplay: "Listening on", // text to display in the device block (default style only)
+                        allowDevices: [], //If you want to limit devices to display info, use this.
+                        // allowDevices: ["RASPOTIFY", "My iPhoneX", "My Home speaker"],
+                        miniBarConfig: {
+                          album: true, // display Album name in miniBar style
+                          scroll: true, // scroll title / artist / album in miniBar style
+                          logo: true, // display Spotify logo in miniBar style
+                          }
+                      }
+                    },
+                    {
+                      module: 'MMM-Cursor',
+                      config: {
+                        timeout: 2500
+                      }
+                    }
+            ]
+
+    };
+
+    /*************** DO NOT EDIT THE LINE BELOW ***************/
+    if (typeof module !== "undefined") {module.exports = config;}
+  css-custom: |
+    /*****************************************************
+     * Magic Mirror                                      *
+     * Custom CSS                                        *
+     *                                                   *
+     * By Michael Teeuw http://michaelteeuw.nl           *
+     * MIT Licensed.                                     *
+     *                                                   *
+     * Add any custom CSS below.                         *
+     * Changes to this files will be ignored by GIT. *
+     *****************************************************/
+
+    html {
+          background: #141619;
+    }
+
+    body {
+            margin: 10px;
+            height: calc(100% - 20px);
+            width: calc(100% - 30px);
+            background: inherit;
+    }
+
+    .region.top.right,
+    .region.top.left,
+    .region.top.center {
+            min-width: 700px;
+    }
+
+    .CX2 .current .eventCount_0 {
+            display: none;
+    }
+    .CX2 .agenda .eventSub {
+            display:none;
+    }
+    .CX2 .daily .fullday .eventTime {
+            display:none;
+    }
+    .CX2 .slot > .slotContent {
+            background: none;
+    }
+    .CX2 .slot .event{
+            background: none;
+    }
+    .CX2 .slot .slotHeader{
+            background-color: inherit;
+            text-transform: uppercase;
+            font-size: 15px;
+            font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+            font-weight: 400;
+            border-bottom: 1px solid #666;
+            line-height: 15px;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #999;
+    }
+    .CX2 .today .slotHeader * {
+            color: inherit;
+    }
+    .CX2 .event.fullday {
+            color: inherit;
+    }
+    .CX2 .slot .slotFooter {
+            display: none;
+    }
+    .CX2 .event {
+            border-left: #000000 solid;
+    }
+    .CX2 .event[data-calendar-name="Andre"],
+    .CX2 .event[data-calendar-name="Andre Work"] {
+            /*color: #ce4138;*/
+            border-left: #ce4138 solid;
+    }
+    .CX2 .event[data-calendar-name="Anja"],
+    .CX2 .event[data-calendar-name="Anja Work"] {
+            /*color: #c632ff;*/
+            border-left: #c632ff solid;
+    }
+    .CX2 .event[data-calendar-name="Tobi"],
+    .CX2 .event[data-calendar-name="Tobi Shared"] {
+            /*color: #d2cf2a;*/
+            border-left: #d2cf2a solid;
+    }
+
+    /* GooglePhotos */
+    #GPHOTO {
+      margin-top: 20px;
+    }
+
+    #GPHOTO_BACK {
+      background-size: contain;
+      filter: blue(50px) brightness(90%);
+    }
+
+    #GPHOTO_BACK.animated {
+      animation-name: trans;
+      animation-duration: 2s;
+    }
+
+    #GPHOTO_INFO {
+      display: none;
+    }
+
+    #SPOTIFY_BACKGROUND {
+      display: none;
+    }
+
+    .MMM-mqtt .value {
+            font-size: 10pt;
+    }
+kind: ConfigMap
+metadata:
+  name: xl
+  namespace: magicmirror

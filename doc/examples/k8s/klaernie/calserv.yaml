@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calserv
+  namespace: magicmirror
+spec:
+  selector:
+    matchLabels:
+      app: calserv
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: calserv
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nfs
+              mountPath: "/usr/share/nginx/html"
+              subPath: calendars
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: calserv
+  name: calserv
+  namespace: magicmirror
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: calserv
+  sessionAffinity: None
+  type: ClusterIP
