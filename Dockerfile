@@ -1,5 +1,6 @@
 FROM node:12-buster
 
+# hadolint ignore=DL3008
 RUN set -e; \
     apt-get update; \
     apt-get install -y --no-install-recommends gettext; \
