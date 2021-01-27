@@ -19,7 +19,7 @@ Also after just a week or two I noticed, that I don't care about a week's worth 
 
 ## Now, what's the plan?
 
-Now, under my desk I have a beefy server, recently upgraded to host all the internal services and finally gotten around to setting up a Kubenetes cluster as three VMs on it (yes, I wanted to play with KVM and Kubernetes - no other reason).
+Now, under my desk I have a beefy server, recently upgraded to host all the internal services and finally gotten around to setting up a Kubernetes cluster as three VMs on it (yes, I wanted to play with KVM and Kubernetes - no other reason).
 So the next logical question was: can I solve my magic-mirror problems with my Kubernetes setup.
 
 So the plan is as following:
@@ -35,7 +35,8 @@ Besides this document you find the exact version (okay, the weather api key is m
 To set everything up I did the following:
 - setup an NFS export on my server (it's `hive.ak-online.be:/volumes/k8s/magic-mirror`) accessible to my local network
 - copy the entire modules directory from my working magic-mirror instances into it.
-- change my vdirsyncer setup, so that it writes the synchronized ical files to this NFS share's `calendars/` directory
+- change my vdirsyncer setup, so that it writes the synchronized ical files to this NFS share's `calendars/` directory.
+  after a while I wanted to run vdirsyncer in a container as well, so checkout [klaernie/docker-vdirsyncer](https://github.com/klaernie/docker-vdirsyncer) if you like.
 - create the namespace `magicmirror`
 - `kubectl apply -f .` (in this directory)
 
