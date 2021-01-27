@@ -1,8 +1,8 @@
 FROM node:12-buster
 
 RUN set -e; \
-    apt update; \
-    apt install -y gettext; \
+    apt-get update; \
+    apt-get install -y gettext; \
     rm -rf /var/lib/apt/lists/*
 
 ARG branch=master
