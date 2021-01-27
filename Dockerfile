@@ -2,7 +2,7 @@ FROM node:12-buster
 
 RUN set -e; \
     apt-get update; \
-    apt-get install -y gettext; \
+    apt-get install -y --no-install-recommends gettext; \
     rm -rf /var/lib/apt/lists/*
 
 ARG branch=master
