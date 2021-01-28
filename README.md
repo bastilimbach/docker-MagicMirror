@@ -4,7 +4,7 @@
 
 [![DockerHub Badge](https://dockeri.co/image/bastilimbach/docker-magicmirror)](https://hub.docker.com/r/bastilimbach/docker-magicmirror/)
 
-# Why Docker? [![Build Status](https://travis-ci.org/bastilimbach/docker-MagicMirror.svg?branch=master)](https://travis-ci.org/bastilimbach/docker-MagicMirror)
+# Why Docker? [![Build Status](https://github.com/bastilimbach/docker-MagicMirror/workflows/Docker/badge.svg?branch=master)](https://github.com/bastilimbach/docker-MagicMirror/actions?query=workflow%3ADocker)
 
 In some cases, you want to start the application without an actual app window. In this case, you can start MagicMirror² in server only mode by manually running `node serveronly` or using Docker. This will start the server, after which you can open the application in your browser of choice.
 
@@ -14,7 +14,7 @@ In some cases, you want to start the application without an actual app window. I
 - `develop` - Image based on the [`develop`](https://github.com/MichMich/MagicMirror/tree/develop) branch.
 - `vX.Y.Z`- Specific MagicMirror release. Take a look at the [releases](https://github.com/MichMich/MagicMirror/releases) page in the MagicMirror repository to get the correct version number.
 
-> The respective docker images are getting updated daily by a cron job from Travis CI.
+> The respective docker images are getting updated daily by a GitHub Actions cron job.
 
 # Run MagicMirror² in server only mode
 
