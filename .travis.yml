@@ -3,6 +3,17 @@ sudo: required
 services:
   - docker
 language: bash
+
+env:
+  - MM_VERSION=2.12.0
+    PLATFORM=12-alpine
+  - MM_VERSION=2.12.0
+    PLATFORM=12-buster 
+  - MM_VERSION=2.12.0
+    PLATFORM=14-alpine 
+  - MM_VERSION=2.12.0
+    PLATFORM=14-buster
+
 before_script:
   # Upgrade Docker and enable experimental mode
   - curl -fsSL https://get.docker.com | sh
@@ -24,6 +35,6 @@ script:
       dopush="--push"
     fi
   # Build the latest stable MagicMirror release
-  - ./build.sh ${dopush}
+  - ./build.sh $MM_VERSION $PLATFORM ${dopush}
 after_script:
   - docker logout

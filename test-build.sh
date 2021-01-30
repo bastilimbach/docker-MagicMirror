@@ -1,10 +1,13 @@
+#!/bin/bash
+set -e
+
 rm -rf ./config
 rm -rf ./modules
 mkdir config
 mkdir modules
 
 docker rm -f magic_mirror
-docker build -t mm:latest .
+docker build -t mm:latest ${1}/${2}
 docker run  -d \
 	--publish 80:8080 \
 	--restart always \

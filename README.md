@@ -12,7 +12,7 @@ In some cases, you want to start the application without an actual app window. I
 
 - `latest` - The [latest stable release](https://github.com/MichMich/MagicMirror/releases/latest) of MagicMirror.
 - `develop` - Image based on the [`develop`](https://github.com/MichMich/MagicMirror/tree/develop) branch.
-- `vX.Y.Z`- Specific MagicMirror release. Take a look at the [releases](https://github.com/MichMich/MagicMirror/releases) page in the MagicMirror repository to get the correct version number.
+- `vX.Y.Z`- Specific MagicMirror release. There is a `-alpine` tag if you are looking for smaller images. Take a look at the [releases](https://github.com/MichMich/MagicMirror/releases) page in the MagicMirror repository to get the correct version number.
 
 > The respective docker images are getting updated daily by a cron job from Travis CI.
 
@@ -115,6 +115,30 @@ and choose 'Localisation options'
 # Contribution
 
 I'm happy to accept Pull Requests! Please note that this project is released with a [Contributor Code of Conduct](https://github.com/bastilimbach/docker-MagicMirror/blob/master/.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+# Usage
+
+## `update.sh`
+``` bash
+./update.sh A.B.C,X.Y.Z
+```
+Creates directory structure with _Dockerfile_, entrypoint file and _mmm-docker-config.js_ for the specified MagicMirror versions (no leading "v") and for the supported platforms i.e. NodeJS versions 12 and 14 on Debian buster and Alpine.
+
+## `build.sh`
+``` bash
+./build.sh 2.12.0 12-buster --push 
+# or
+./build.sh 2.12.0,A.B.C,X.Y.Z 12-buster,12-alpine,14-buster,14-alpine --push 
+```
+Build Docker images locally. You can specify one or many versions that you want to build on one or many platforms. Building images locally for multiple architectures with the `--load` flag is [currently not possible](https://github.com/docker/buildx/issues/59). If the optional third argument `--push` is set when running the build script it will use `buildx` to build and push the Docker image for the defined architectures.
+
+## `test-build.sh`
+``` bash
+./test-build.sh 2.12.0 12-buster
+```
+
+Build and run specified MagicMirror version on specified platform locally. Exposed on port 80 and with _modules_ and _config_ as volumes in this project's root directory. 
+
 
 # License
 [MIT](https://github.com/bastilimbach/docker-MagicMirror/blob/master/LICENSE) ❤️
