@@ -1,8 +1,9 @@
 FROM node:12-buster
 
+# hadolint ignore=DL3008
 RUN set -e; \
-    apt update; \
-    apt install -y gettext; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends gettext; \
     rm -rf /var/lib/apt/lists/*
 
 ARG branch=master
@@ -16,7 +17,6 @@ RUN cp -R config /opt/default_config
 RUN npm install --unsafe-perm --silent
 
 COPY mm-docker-config.js docker-entrypoint.sh ./
-RUN chmod +x ./docker-entrypoint.sh
 
 EXPOSE 8080
 ENTRYPOINT ["./docker-entrypoint.sh"]

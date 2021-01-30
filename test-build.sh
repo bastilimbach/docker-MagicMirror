@@ -1,3 +1,5 @@
+#!/bin/bash
+
 rm -rf ./config
 rm -rf ./modules
 mkdir config
@@ -8,7 +10,7 @@ docker build -t mm:latest .
 docker run  -d \
 	--publish 80:8080 \
 	--restart always \
-	--volume $PWD/config:/opt/magic_mirror/config \
-	--volume $PWD/modules:/opt/magic_mirror/modules \
+	--volume "$PWD"/config:/opt/magic_mirror/config \
+	--volume "$PWD"/modules:/opt/magic_mirror/modules \
 	--name magic_mirror \
 	mm:latest
